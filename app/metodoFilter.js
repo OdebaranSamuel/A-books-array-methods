@@ -11,5 +11,5 @@ function filtrarLivros() {
     let livrosFiltrados = livros.filter(
         (livro) => livro.categoria == categoria
     );
-    console.table(livrosFiltrados);
+    exibirOsLivrosNaTela(livrosFiltrados);
 }
