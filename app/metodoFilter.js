@@ -7,10 +7,31 @@ botoes.forEach((btn) => {
 function filtrarLivros() {
     const elementoBtn = document.getElementById(this.id);
     const categoria = elementoBtn.value;
-    console.log(categoria);
     let livrosFiltrados =
         categoria == "disponivel"
-            ? livros.filter((livro) => livro.quantidade > 0)
-            : livros.filter((livro) => livro.categoria == categoria);
+            ? filtrarPorDisponibilidade()
+            : filtrarPorCategoria(categoria);
     exibirOsLivrosNaTela(livrosFiltrados);
+    if (categoria == "disponivel") {
+        const valorTotal =
+            calcularValorTotalDeLivrosDisponiveis(livrosFiltrados);
+
+        exibirValorTotalDosLivrosDisponiveis(valorTotal);
+    }
+}
+
+function filtrarPorCategoria(categoria) {
+    return livros.filter((livro) => livro.categoria == categoria);
+}
+
+function filtrarPorDisponibilidade() {
+    return livros.filter((livro) => livro.quantidade > 0);
+}
+
+function exibirValorTotalDosLivrosDisponiveis(valorTotal) {
+    elementoValorTotal.innerHTML = `
+    <div class="livros__disponiveis">
+    <p>Todos os livros disponíveis por R$ <span id="valor">${valorTotal}</span></p>
+    </div>
+    `;
 }
